@@ -1,0 +1,48 @@
+.form {
+  background-color: var(--clr-white);
+  border-radius: var(--rounded-md);
+  max-width: 46rem;
+  width: 100%;
+  padding: var(--space-300);
+  margin: 0 auto;
+}
+
+.formTitle {
+  margin-block-end: var(--space-400);
+}
+
+.formControls {
+  display: grid;
+  column-gap: var(--space-200);
+  row-gap: var(--space-300);
+}
+
+.formFieldset {
+  border: transparent;
+}
+
+.queryOptions {
+  display: grid;
+  gap: var(--space-200);
+}
+
+.queryError {
+  display: inline-block;
+  margin-block-start: var(--space-200);
+}
+
+@media screen and (min-width: 48em) {
+  
+  .formControls, .queryOptions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .email, .formFieldset {
+    grid-column: span 2;
+  }
+
+  .queryOptions {
+    flex-direction: row;
+  }
+
+}

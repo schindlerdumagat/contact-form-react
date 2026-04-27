@@ -1,0 +1,51 @@
+.queryOption {
+  position: relative;
+  padding: var(--space-150) var(--space-300);
+  border: 2px solid var(--clr-grey-500);
+  border-radius: var(--rounded-xs);
+}
+
+.queryOption::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--clr-grey-500);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.queryOptionChecked {
+  background-color: var(--clr-green-200);
+  border-color: var(--clr-green-600);
+}
+
+.queryOptionChecked::before {
+  content: "";
+  background-image: url("/images/icon-radio-selected.svg");
+  background-repeat: no-repeat;
+  background-position: left var(--space-300) center;
+  border: unset;
+}
+
+.queryOption:hover {
+  border-color: var(--clr-green-600);
+}
+
+.queryOption:focus-within {
+  border-color: var(--clr-green-600);
+  background-color: var(--clr-green-200);
+}
+
+.queryInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.queryLabel {
+  margin-inline-start: var(--space-400);
+}

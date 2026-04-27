@@ -1,0 +1,20 @@
+.formInput {
+  padding: var(--space-150) var(--space-300);
+  border: 2px solid var(--clr-grey-500);
+  border-radius: var(--rounded-xs);
+  cursor: pointer;
+  font-size: var(--fs-input);
+  color: var(--clr-grey-900);
+}
+
+.formInput:hover {
+  border-color: var(--clr-green-600);
+}
+
+.formInput:focus-visible {
+  outline-color: var(--clr-green-600);
+}
+
+.formInputError {
+  border-color: var(--clr-red);
+}

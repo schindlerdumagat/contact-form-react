@@ -1,0 +1,9 @@
+.legend {
+  display: flex;
+  gap: var(--space-100);
+  margin-block-end: var(--space-200);
+}
+
+.required {
+  color: var(--clr-green-600);
+}

@@ -1,0 +1,20 @@
+.textArea {
+  padding: var(--space-150) var(--space-300);
+  border: 2px solid var(--clr-grey-500);
+  border-radius: var(--rounded-xs);
+  cursor: pointer;
+  font-size: var(--fs-input);
+  color: var(--clr-grey-900);
+}
+
+.textArea:hover {
+  border-color: var(--clr-green-600);
+}
+
+.textArea:focus-visible {
+  outline-color: var(--clr-green-600);
+}
+
+.textAreaError {
+  border-color: var(--clr-red);
+}

@@ -1,0 +1,147 @@
+/* CSS RESETS */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove list styles on ul elements with a list role, which suggests default styling will be removed */
+ul[role='list']{
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100dvh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on interactive elements */
+button, input, label {
+  line-height: 1.5;
+}
+
+h1, h2 {
+  line-height: 1;     /* Set shorter line heights on headings */
+  text-wrap: balance; /* Balance text wrapping on headings */
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
+
+/* FONTS */
+
+/* karla-regular - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/karla-v33-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* karla-700 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/karla-v33-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* CUSTOM VARIABLES */
+
+:root {
+
+  /* COLORS */
+
+  --clr-grey-900: hsl(187, 24%, 22%);
+  --clr-grey-500: hsl(186, 15%, 59%);
+  --clr-green-600: hsl(169, 82%, 27%);
+  --clr-green-200: hsl(148, 38%, 91%);
+  --clr-red: hsl(0, 66%, 54%);
+  --clr-white: hsl(0, 0%, 100%);
+
+  /* TYPOGRAPHY */
+
+  --ff-main: "Karla", sans-serif;
+  --fs-heading: 2rem;
+  --fs-body: 1rem;
+  --fs-input: 1.125rem;
+
+  /* SPACINGS */
+
+  --space-1600: 8rem;
+  --space-500: 2.5rem;
+  --space-400: 2rem;
+  --space-300: 1.5rem;
+  --space-200: 1rem;
+  --space-150: .75rem;
+  --space-100: .5rem;
+
+  /* BORDER RADIUS */
+
+  --rounded-xs: 8px;
+  --rounded-sm: 12px;
+  --rounded-md: 16px;
+
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-400) var(--space-200);
+  background-color: var(--clr-green-200);
+  font-family: var(--ff-main);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  color: var(--clr-grey-900);
+}
+
+h1, h2 {
+  font-size: var(--fs-heading);
+  font-weight: 700;
+}
+
+@media screen and (min-width: 48em) {
+  
+  body {
+    padding: var(--space-1600) var(--space-500);
+  }
+
+}
