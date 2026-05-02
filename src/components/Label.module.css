@@ -1,8 +1,4 @@
-.label {
-  display: flex;
-  gap: var(--space-100);
-}
-
 .required {
+  margin-inline-start: var(--space-100);
   color: var(--clr-green-600);
 }

@@ -1,0 +1,31 @@
+.consentContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-200);
+}
+
+.consentContainer::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--clr-grey-500);
+  flex: 0 0 18px;
+}
+
+.consentContainer:has(.consentCheckbox:focus-visible)::before {
+  outline: 2px solid var(--clr-green-600);
+  outline-offset: 2px;
+}
+
+.consentContainer:has(.consentCheckbox:checked)::before {
+  content: "";
+  background-image: url("/images/icon-checkbox-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  border: unset;
+}
+
+.consentCheckbox {
+  position: absolute;
+  opacity: 0;
+}

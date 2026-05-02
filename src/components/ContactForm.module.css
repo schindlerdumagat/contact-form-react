@@ -12,6 +12,12 @@
 }
 
 .formControls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-500);
+}
+
+.formFields {
   display: grid;
   column-gap: var(--space-200);
   row-gap: var(--space-300);

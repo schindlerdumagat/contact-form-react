@@ -1,0 +1,14 @@
+.btn {
+  background-color: var(--clr-green-600);
+  border: 1px solid var(--clr-green-600);
+  border-radius: var(--rounded-xs);
+  padding: 0.9em;
+  font-weight: 700;
+  font-size: var(--fs-input);
+  color: var(--clr-white);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--clr-green-600);
+  outline-offset: 2px;
+}
