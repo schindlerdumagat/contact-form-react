@@ -11,76 +11,63 @@ import Button from "./Button";
 import { validations, validationRules } from "../utils";
 import style from "./ContactForm.module.css";
 
-function ContactForm({ onSuccess }) {
+const INITIAL_FORM_DATA = {
+  firstName: {
+    value: "",
+    errorMessage: "",
+  },
+  lastName: {
+    value: "",
+    errorMessage: "",
+  },
+  email: {
+    value: "",
+    errorMessage: "",
+  },
+  queryType: {
+    value: "",
+    errorMessage: "",
+  },
+  message: {
+    value: "",
+    errorMessage: "",
+  },
+  consent: {
+    value: false,
+    errorMessage: "",
+  },
+}
 
-  const [formState, setFormState] = useState({
+const INITIAL_FORM_STATE = {
     hasSubmitAttempt: false,
     hasFormError: false
-  })
+  }
 
-  const [formData, setFormData] = useState({
-    firstName: {
-      value: "",
-      errorMessage: "",
-    },
-    lastName: {
-      value: "",
-      errorMessage: "",
-    },
-    email: {
-      value: "",
-      errorMessage: "",
-    },
-    queryType: {
-      value: "",
-      errorMessage: "",
-    },
-    message: {
-      value: "",
-      errorMessage: "",
-    },
-    consent: {
-      value: false,
-      errorMessage: "",
-    },
-  });
+function ContactForm({ onSuccess }) {
+
+  const [formState, setFormState] = useState(INITIAL_FORM_STATE);
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   function handleChange(e) {
 
-    if (e.target.type === "checkbox") {
-      setFormData(prev => {
-
-        if(formState.hasSubmitAttempt) {
-          const errorMessage = validateField(e.target.checked, validationRules[e.target.name]);
-          updateErrorMessage(errorMessage, e.target.name);
-        }
-
-        return {
-          ...prev,
-          consent: {
-            ...prev.consent,
-            value: e.target.checked
-          }
-        }
-      });
-      return;
-    }
-
+    const newValue = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const inputName = e.target.name;
     setFormData(prev => {
 
-      if(formState.hasSubmitAttempt) {
-        const errorMessage = validateField(e.target.value, validationRules[e.target.name]);
-        updateErrorMessage(errorMessage, e.target.name);
-      }
+      const errorMessage = formState.hasSubmitAttempt ? 
+        validateField(newValue, validationRules[inputName]) 
+        : 
+        prev[inputName].errorMessage;
 
       return {
         ...prev,
-        [e.target.name]: {
-          ...prev[e.target.name],
-          value: e.target.value,
+        [inputName]: {
+          ...prev[inputName],
+          errorMessage,
+          value: newValue,
         }
       }
-    });
+    })
 
   };
   
@@ -89,23 +76,25 @@ function ContactForm({ onSuccess }) {
     
     let hasError = false;
 
+    const newFormData = {};
+
     for (const field in formData) {
-      const { value } = formData[field];
-      const errorMessage = validateField(value, validationRules[field]);
+      const fieldValue = formData[field].value;
+      const errorMessage = validateField(fieldValue, validationRules[field]);
       if (errorMessage) {
         hasError = true;
       }
-      updateErrorMessage(errorMessage, field);
+      newFormData[field] = {
+        value: fieldValue,
+        errorMessage: errorMessage
+      }
     }
 
     if(!hasError) {
       onSuccess();
-      setFormState(prev => ({
-        ...prev,
-        hasFormError: false,
-        hasSubmitAttempt: false
-      }))
+      resetForm();
     } else {
+      setFormData(newFormData);
       setFormState(prev => ({
         ...prev,
         hasFormError: hasError,
@@ -113,6 +102,11 @@ function ContactForm({ onSuccess }) {
       }))
     }
 
+  }
+
+  function resetForm() {
+    setFormData(INITIAL_FORM_DATA);
+    setFormState(INITIAL_FORM_STATE)
   }
 
   function validateField(value, validationRules) {
@@ -129,18 +123,20 @@ function ContactForm({ onSuccess }) {
     return errorMessage;
   }
 
-  function updateErrorMessage(error, field) {
+  let isFirstNameError = false;
+  let isLastNameError = false;
+  let isEmailError = false;
+  let isQueryTypeError = false;
+  let isMessageError = false;
+  let isConsentError = false;
 
-    setFormData(prev => {
-      return {
-        ...prev, 
-        [field]: {
-          ...prev[field],
-          errorMessage: error
-        }
-      }
-    })
-
+  if (formState.hasSubmitAttempt) {
+    isFirstNameError = !!formData.firstName.errorMessage;
+    isLastNameError = !!formData.lastName.errorMessage;
+    isEmailError = !!formData.email.errorMessage;
+    isQueryTypeError = !!formData.queryType.errorMessage;
+    isMessageError = !!formData.message.errorMessage;
+    isConsentError = !!formData.consent.errorMessage;
   }
 
   return (
@@ -150,34 +146,34 @@ function ContactForm({ onSuccess }) {
         <div className={style.formFields}>
           <FormGroup className={style.firstName}>
             <Label isRequired={true} htmlFor="first-name">First Name</Label>
-            <TextInput isError={formState.hasSubmitAttempt && !!formData.firstName.errorMessage} value={formData.firstName.value} onChange={handleChange} type="text" id="first-name" name="firstName" isRequired={false} autoComplete="given-name" aria-describedby="first-name-error" />
-            {formData.firstName.errorMessage && <Error id="first-name-error">{formData.firstName.errorMessage}</Error>}
+            <TextInput isError={isFirstNameError} value={formData.firstName.value} onChange={handleChange} type="text" id="first-name" name="firstName" isRequired={false} autoComplete="given-name" aria-describedby="first-name-error" />
+            {isFirstNameError && <Error id="first-name-error">{formData.firstName.errorMessage}</Error>}
           </FormGroup>
           <FormGroup className={style.lastName}>
             <Label isRequired={true} htmlFor="last-name">Last Name</Label>
-            <TextInput isError={formState.hasSubmitAttempt && !!formData.lastName.errorMessage} value={formData.lastName.value} onChange={handleChange} type="text" id="last-name" name="lastName" isRequired={false} autoComplete="family-name" aria-describedby="last-name-error" />
-            {formData.lastName.errorMessage && <Error id="last-name-error">{formData.lastName.errorMessage}</Error>}
+            <TextInput isError={isLastNameError} value={formData.lastName.value} onChange={handleChange} type="text" id="last-name" name="lastName" isRequired={false} autoComplete="family-name" aria-describedby="last-name-error" />
+            {isLastNameError && <Error id="last-name-error">{formData.lastName.errorMessage}</Error>}
           </FormGroup>
           <FormGroup className={style.email}>
             <Label isRequired={true} htmlFor="email">Email Address</Label>
-            <TextInput isError={formState.hasSubmitAttempt && !!formData.email.errorMessage} value={formData.email.value} onChange={handleChange} type="email" id="email" name="email" isRequired={false} autoComplete="email" aria-describedby="email-error" />
-            {formData.email.errorMessage && <Error id="email-error">{formData.email.errorMessage}</Error>}
+            <TextInput isError={isEmailError} value={formData.email.value} onChange={handleChange} type="email" id="email" name="email" isRequired={false} autoComplete="email" aria-describedby="email-error" />
+            {isEmailError && <Error id="email-error">{formData.email.errorMessage}</Error>}
           </FormGroup>
           <fieldset className={style.formFieldset}>
             <Legend isRequired={true}>Query Type</Legend>
             <ul className={style.queryOptions} role="list">
-              <QueryOption isError={formState.hasSubmitAttempt && !!formData.queryType.errorMessage} selectedOption={formData.queryType.value} onChange={handleChange} id="general-inquiry" value="general-inquiry" aria-describedby="query-error" required={true}>General Inquiry</QueryOption>
-              <QueryOption isError={formState.hasSubmitAttempt && !!formData.queryType.errorMessage} selectedOption={formData.queryType.value} onChange={handleChange} id="support-request" value="support-request" aria-describedby="query-error">Support Request</QueryOption>
+              <QueryOption isError={isQueryTypeError} selectedOption={formData.queryType.value} onChange={handleChange} id="general-inquiry" value="general-inquiry" aria-describedby="query-error" required={true}>General Inquiry</QueryOption>
+              <QueryOption isError={isQueryTypeError} selectedOption={formData.queryType.value} onChange={handleChange} id="support-request" value="support-request" aria-describedby="query-error">Support Request</QueryOption>
             </ul>
-            {formData.queryType.errorMessage && <Error id="query-error" className={style.queryError}>{formData.queryType.errorMessage}</Error>}
+            {isQueryTypeError && <Error id="query-error" className={style.queryError}>{formData.queryType.errorMessage}</Error>}
           </fieldset>
           <FormGroup className={style.email}>
             <Label isRequired={true} htmlFor="message">Message</Label>
-            <TextArea isError={formState.hasSubmitAttempt && !!formData.message.errorMessage} value={formData.message.value} onChange={handleChange} id="message" name="message" isRequired={true} aria-describedby="message-error" rows={4} />
-            {formData.message.errorMessage && <Error id="message-error">{formData.message.errorMessage}</Error>}
+            <TextArea isError={isMessageError} value={formData.message.value} onChange={handleChange} id="message" name="message" isRequired={true} aria-describedby="message-error" rows={4} />
+            {isMessageError && <Error id="message-error">{formData.message.errorMessage}</Error>}
           </FormGroup>
         </div>
-        <ConsentField isError={formState.hasSubmitAttempt && !!formData.consent.errorMessage} isChecked={formData.consent.value} onChange={handleChange} errorMessage={formData.consent.errorMessage} />
+        <ConsentField isError={isConsentError} isChecked={formData.consent.value} onChange={handleChange} errorMessage={formData.consent.errorMessage} />
         <Button type="submit">Submit</Button>
       </div>
     </form>

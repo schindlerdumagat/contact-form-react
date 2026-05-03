@@ -13,6 +13,11 @@
   animation: slideDown 500ms ease;
 }
 
+.messageContainer:focus {
+  outline: 2px solid var(--clr-grey-900);
+  outline-offset: 2px;
+}
+
 .messageTitleContainer {
   display: flex;
   align-items: center;

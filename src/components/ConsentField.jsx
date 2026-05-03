@@ -11,7 +11,7 @@ function ConsentField({ isChecked, onChange, errorMessage, isError, ...props }) 
         <input className={style.consentCheckbox} type="checkbox" id="consent" name="consent" checked={isChecked} onChange={onChange} aria-invalid={isError} aria-describedby="consent-error" {...props} />
         <Label htmlFor="consent" isRequired={true}>I consent to being contacted by the team</Label>
       </div>
-      {errorMessage && <Error id="consent-error">{errorMessage}</Error>}
+      {isError && <Error id="consent-error">{errorMessage}</Error>}
     </FormGroup>
   )
 }
