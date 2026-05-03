@@ -4,7 +4,7 @@ function TextArea({
   id,
   name,
   isRequired,
-  isError,
+  isError = false,
   minLength = 15,
   value,
   onChange,
@@ -21,6 +21,7 @@ function TextArea({
       id={id}
       required={isRequired}
       minLength={minLength}
+      aria-invalid={isError}
       {...props}
     ></textarea>
   );

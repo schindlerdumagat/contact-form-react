@@ -23,6 +23,7 @@ function TextInput({
       required={isRequired}
       value={value}
       onChange={onChange}
+      aria-invalid={isError}
       { ...props }
     />
   )

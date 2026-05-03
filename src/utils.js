@@ -8,6 +8,16 @@ const validations = {
   isChecked: (val) => !val && "To submit this form, please consent to being contacted",
 }
 
+const validationRules = {
+  firstName: ["isEmpty"],
+  lastName: ["isEmpty"],
+  email: ["isEmpty", "isEmail"],
+  queryType: ["hasQueryValue"],
+  message: ["isEmpty", "isWithinRange"],
+  consent: ["isChecked"],
+}
+
 export {
-  validations
+  validations,
+  validationRules
 }

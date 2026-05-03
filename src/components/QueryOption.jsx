@@ -6,6 +6,7 @@ function QueryOption({
   value,
   onChange,
   selectedOption,
+  isError = false,
   ...props
 }) {
   const radioClassName = `${style.queryOption} ${selectedOption === value ? style.queryOptionChecked : ""}`;
@@ -19,6 +20,7 @@ function QueryOption({
         type="radio"
         id={id}
         name="queryType"
+        aria-invalid={isError}
         {...props}
       />
       <label className={style.queryLabel} htmlFor={id}>

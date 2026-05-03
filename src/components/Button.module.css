@@ -6,6 +6,7 @@
   font-weight: 700;
   font-size: var(--fs-input);
   color: var(--clr-white);
+  cursor: pointer;
 }
 
 .btn:focus-visible {

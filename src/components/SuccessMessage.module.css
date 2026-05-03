@@ -1,0 +1,44 @@
+.messageContainer {
+  display: grid;
+  gap: var(--space-100);
+  position: absolute;
+  top: var(--space-300);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--clr-grey-900);
+  border-radius: var(--rounded-sm);
+  padding: var(--space-300);
+  width: 90%;
+  max-width: 28.125rem;
+  animation: slideDown 500ms ease;
+}
+
+.messageTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+}
+
+.messageTitle {
+  font-size: var(--fs-input);
+  line-height: 1.5;
+  color: var(--clr-white);
+}
+
+.messageDescription {
+  color: var(--clr-green-200);
+}
+
+@keyframes slideDown {
+  
+  from {
+    opacity: 0;
+    top: 0;
+  }
+
+  to {
+    opacity: 1;
+    top: var(--space-300);
+  }
+
+}
